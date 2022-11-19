@@ -1,5 +1,10 @@
-import Link from 'next/link'
-import { Anchor, Page, PageContent, PageHeader } from '../../components/Grommet'
+import Link from 'next/link';
+import {
+  Anchor,
+  Page,
+  PageContent,
+  PageHeader,
+} from '../../components/Grommet';
 
 const UsersLayout = ({ children }: { children: React.ReactNode }) => (
   <Page>
@@ -15,6 +20,6 @@ const UsersLayout = ({ children }: { children: React.ReactNode }) => (
       {children}
     </PageContent>
   </Page>
-)
+);
 
-export default UsersLayout
+export default UsersLayout;
