@@ -4,21 +4,12 @@ import {
   Page,
   PageContent,
   PageHeader,
+  Text,
 } from '../../components/Grommet';
 
 const UsersLayout = ({ children }: { children: React.ReactNode }) => (
   <Page>
-    <PageContent>
-      <PageHeader
-        title="Users"
-        parent={
-          <Link href="/">
-            <Anchor label="Home" />
-          </Link>
-        }
-      />
-      {children}
-    </PageContent>
+    <PageContent>{children}</PageContent>
   </Page>
 );
 

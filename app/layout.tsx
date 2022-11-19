@@ -1,11 +1,11 @@
-import './globals.css'
-import { Footer, Grommet, Header, Main } from '../components/Grommet'
-import { hpe } from '../themes/hpe'
+import './globals.css';
+import { Footer, Grommet, Header, Main } from '../components/Grommet';
+import { hpe } from '../themes/hpe';
 
 export default function RootLayout({
   children,
 }: {
-  children: React.ReactNode
+  children: React.ReactNode;
 }) {
   return (
     <html lang="en">
@@ -22,5 +22,5 @@ export default function RootLayout({
         </Grommet>
       </body>
     </html>
-  )
+  );
 }

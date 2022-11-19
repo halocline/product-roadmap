@@ -1,10 +1,12 @@
 import Link from 'next/link';
 import {
+  Anchor,
   Card,
   CardBody,
   CardHeader,
   Grid,
   Heading,
+  PageHeader,
   Text,
 } from '../../components/Grommet';
 
@@ -19,6 +21,14 @@ const Page = async () => {
 
   return (
     <>
+      <PageHeader
+        title="Users"
+        parent={
+          <Link href="/">
+            <Anchor as={Text} label="Home" />
+          </Link>
+        }
+      />
       <Grid columns={{ size: 'small' }} gap="small">
         {users.map(
           ({
@@ -30,8 +40,8 @@ const Page = async () => {
             name: string;
             birthdate: string;
           }) => (
-            <Link key={id} href={`/users/${id}`}>
-              <Card as="a">
+            <Link key={id} href={`/users/${id}?name=${name}`}>
+              <Card>
                 <CardHeader>
                   <Heading level={2} size="small" margin="none">
                     {name}
