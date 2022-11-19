@@ -9,6 +9,7 @@ import {
   PageHeader,
   Text,
 } from '../../components/Grommet';
+import { ReverseAnchor } from '../../components/ReverseAnchor';
 
 async function getUsers() {
   const res = await fetch('http://localhost:8080/users');
@@ -23,25 +24,26 @@ const Page = async () => {
     <>
       <PageHeader
         title="Users"
-        parent={
-          <Link href="/">
-            <Anchor as={Text} label="Home" />
-          </Link>
-        }
+        parent={<ReverseAnchor href="/" label="Home" />}
       />
       <Grid columns={{ size: 'small' }} gap="small">
         {users.map(
-          ({
-            id,
-            name,
-            birthdate,
-          }: {
-            id: number;
-            name: string;
-            birthdate: string;
-          }) => (
+          (
+            {
+              id,
+              name,
+              birthdate,
+            }: {
+              id: number;
+              name: string;
+              birthdate: string;
+            },
+            index
+          ) => (
             <Link key={id} href={`/users/${id}?name=${name}`}>
-              <Card>
+              <Card
+                animation={{ type: 'fadeIn', delay: index * 50, duration: 500 }}
+              >
                 <CardHeader>
                   <Heading level={2} size="small" margin="none">
                     {name}

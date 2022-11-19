@@ -1,6 +1,6 @@
 import Link from 'next/link';
-import { Anchor, PageHeader, Text } from '../../../components/Grommet';
-import { FormPrevious } from '../../../components/grommet-icons';
+import { PageHeader } from '../../../components/Grommet';
+import { ReverseAnchor } from '../../../components/ReverseAnchor';
 
 const User = ({
   params,
@@ -13,16 +13,7 @@ const User = ({
     <>
       <PageHeader
         title={searchParams.name}
-        parent={
-          <Link href="/users">
-            <Anchor
-              as={Text}
-              label="Users"
-              icon={<FormPrevious />}
-              gap="hair"
-            />
-          </Link>
-        }
+        parent={<ReverseAnchor href="/users" label="Users" />}
       />
       {params.id}
     </>
