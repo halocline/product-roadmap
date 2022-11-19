@@ -1,3 +1,3 @@
 'use client';
 
-export {FormPrevious} from 'grommet-icons';
+export { FormPrevious } from 'grommet-icons';

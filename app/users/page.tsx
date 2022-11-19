@@ -9,6 +9,7 @@ import {
   PageHeader,
   Text,
 } from '../../components/Grommet';
+import { NavCard } from '../../components/NavCard';
 import { ReverseAnchor } from '../../components/ReverseAnchor';
 
 async function getUsers() {
@@ -40,20 +41,16 @@ const Page = async () => {
             },
             index
           ) => (
-            <Link key={id} href={`/users/${id}?name=${name}`}>
-              <Card
-                animation={{ type: 'fadeIn', delay: index * 50, duration: 500 }}
-              >
-                <CardHeader>
-                  <Heading level={2} size="small" margin="none">
-                    {name}
-                  </Heading>
-                </CardHeader>
-                <CardBody>
-                  <Text>{birthdate}</Text>
-                </CardBody>
-              </Card>
-            </Link>
+            <NavCard key={id} index={index} href={`/users/${id}?name=${name}`}>
+              <CardHeader>
+                <Heading level={2} size="small" margin="none">
+                  {name}
+                </Heading>
+              </CardHeader>
+              <CardBody>
+                <Text>{birthdate}</Text>
+              </CardBody>
+            </NavCard>
           )
         )}
       </Grid>
