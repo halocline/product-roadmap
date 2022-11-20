@@ -1,16 +1,8 @@
 import Link from 'next/link';
-import {
-  Anchor,
-  Card,
-  CardBody,
-  CardHeader,
-  Grid,
-  Heading,
-  PageHeader,
-  Text,
-} from '../../components/Grommet';
-import { NavCard } from '../../components/NavCard';
+import { PageHeader } from '../../components/Grommet';
 import { ReverseAnchor } from '../../components/ReverseAnchor';
+import { UsersGrid } from '../../components/UsersGrid';
+import { UserType } from '../../utilities/types';
 
 async function getUsers() {
   const res = await fetch('http://localhost:8080/users');
@@ -18,8 +10,7 @@ async function getUsers() {
 }
 
 const Page = async () => {
-  const users: [{ id: number; name: string; birthdate: string }] =
-    await getUsers();
+  const users: [UserType] = await getUsers();
 
   return (
     <>
@@ -27,33 +18,7 @@ const Page = async () => {
         title="Users"
         parent={<ReverseAnchor href="/" label="Home" />}
       />
-      <Grid columns={{ size: 'small' }} gap="small">
-        {users.map(
-          (
-            {
-              id,
-              name,
-              birthdate,
-            }: {
-              id: number;
-              name: string;
-              birthdate: string;
-            },
-            index
-          ) => (
-            <NavCard key={id} index={index} href={`/users/${id}?name=${name}`}>
-              <CardHeader>
-                <Heading level={2} size="small" margin="none">
-                  {name}
-                </Heading>
-              </CardHeader>
-              <CardBody>
-                <Text>{birthdate}</Text>
-              </CardBody>
-            </NavCard>
-          )
-        )}
-      </Grid>
+      <UsersGrid users={users} />
     </>
   );
 };

@@ -1,25 +1,28 @@
 'use client';
 
-import { useState } from 'react';
+import React, { useState } from 'react';
 import Link from 'next/link';
 import { Card } from './Grommet';
 
 export const NavCard = ({
   children,
-  key,
   index,
   href,
   ...rest
 }: {
   children: React.ReactNode;
-  key: string | number;
   index: number;
   href: string;
+  draggable?: boolean;
+  onDragStart?: (event: React.SyntheticEvent) => void;
+  onDragEnter?: (event: React.SyntheticEvent) => void;
+  onDragOver?: (event: React.SyntheticEvent) => void;
+  onDrop?: (event: React.SyntheticEvent) => void;
 }) => {
   const [hover, setHover] = useState(false);
 
   return (
-    <Link href={href} key={key}>
+    <Link href={href}>
       <Card
         animation={{ type: 'fadeIn', delay: index * 50, duration: 500 }}
         elevation={hover ? 'medium' : 'small'}
