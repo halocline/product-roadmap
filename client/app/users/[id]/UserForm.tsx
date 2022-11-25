@@ -1,9 +1,7 @@
 'use client';
 
-import React, { useEffect, useState } from 'react';
+import { useState } from 'react';
 import {
-  Box,
-  Button,
   DateInput,
   Form,
   NameValueList,
@@ -50,42 +48,36 @@ export const UserForm = ({ user }: { user: UserType }) => {
   };
 
   return (
-    <Form
-      value={formValue}
-      onChange={(nextValue) => setFormValue(nextValue)}
-      onSubmit={() => onSave(formValue)}
-    >
-      <Box gap="medium">
-        <NameValueList
-          nameProps={{ width: ['xxsmall', 'xsmall'] }}
-          valueProps={{ width: 'medium' }}
-        >
-          {Object.entries(user).map(([key, value]) => {
-            const Input = INPUT_MAP.get(key);
+    <Form value={formValue} onChange={(nextValue) => setFormValue(nextValue)}>
+      <NameValueList
+        nameProps={{ width: ['xxsmall', 'xsmall'] }}
+        valueProps={{ width: 'medium' }}
+      >
+        {Object.entries(user).map(([key, value]) => {
+          const Input = INPUT_MAP.get(key);
 
-            return (
-              <NameValuePair
-                key={key}
-                name={
-                  <NameValueListFormLabel
-                    data={{ displayName: key }}
-                    name={key}
-                  />
-                }
-              >
-                <NameValueListFormField name={key}>
-                  <Input
-                    id={key}
-                    name={key}
-                    value={formValue[key as keyof UserType]}
-                  />
-                </NameValueListFormField>
-              </NameValuePair>
-            );
-          })}
-        </NameValueList>
-        <Button label="Update" secondary type="submit" alignSelf="start" />
-      </Box>
+          return (
+            <NameValuePair
+              key={key}
+              name={
+                <NameValueListFormLabel
+                  data={{ displayName: key }}
+                  name={key}
+                />
+              }
+            >
+              <NameValueListFormField name={key}>
+                <Input
+                  id={key}
+                  name={key}
+                  value={formValue[key as keyof UserType]}
+                  onBlur={() => onSave(formValue)}
+                />
+              </NameValueListFormField>
+            </NameValuePair>
+          );
+        })}
+      </NameValueList>
     </Form>
   );
 };
