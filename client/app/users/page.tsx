@@ -5,7 +5,7 @@ import { UsersGrid } from '../../components/UsersGrid';
 import { UserType } from '../../utilities/types';
 
 async function getUsers() {
-  const res = await fetch('http://localhost:8080/users');
+  const res = await fetch(`${process.env.API_URL}/users`);
   return res.json();
 }
 

@@ -5,7 +5,7 @@ import { UserType } from '../../../utilities/types';
 import { UserForm } from './UserForm';
 
 async function getUser(id: string) {
-  const res = await fetch(`http://localhost:8080/users/${id}`);
+  const res = await fetch(`${process.env.API_URL}/users/${id}`);
   return res.json();
 }
 
@@ -21,7 +21,7 @@ const User = async ({
   return (
     <>
       <PageHeader
-        title={searchParams.name}
+        title={user.name || searchParams.name}
         parent={<ReverseAnchor href="/users" label="Users" />}
       />
       <UserForm user={user} />

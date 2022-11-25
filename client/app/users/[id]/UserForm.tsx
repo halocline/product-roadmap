@@ -2,6 +2,8 @@
 
 import React, { useEffect, useState } from 'react';
 import {
+  Box,
+  Button,
   DateInput,
   Form,
   NameValueList,
@@ -11,6 +13,18 @@ import {
 import { NameValueListFormField } from '../../../components/NameValueListFormField';
 import { NameValueListFormLabel } from '../../../components/NameValueListFormLabel';
 import { UserType } from '../../../utilities/types';
+
+async function updateUser(user: UserType) {
+  const res = await fetch(`http://localhost:8080/users/${user.id}`, {
+    method: 'PUT',
+    headers: {
+      'Content-Type': 'application/json',
+    },
+    body: JSON.stringify(user),
+  });
+  console.log('RESPONSE', res);
+  return res.json();
+}
 
 interface InputType {
   id: string;
@@ -30,52 +44,48 @@ INPUT_MAP.set('birthdate', (props: InputType) => (
 
 export const UserForm = ({ user }: { user: UserType }) => {
   const [formValue, setFormValue] = useState<UserType>(user);
-  const onChange = (event: React.SyntheticEvent | any, key: string) => {
-    const nextValue: any = { ...formValue };
-    nextValue[key as keyof UserType] =
-      (event.target as HTMLInputElement)?.value || event.value;
-    setFormValue(nextValue);
+
+  const onSave = (nextUser: UserType) => {
+    updateUser(nextUser).then((res) => console.log(res.value));
   };
 
-  useEffect(() => {
-    Object.values(formValue).forEach((value) => {
-      console.log(value, typeof value);
-    });
-  }, [formValue]);
-
   return (
-    <Form value={formValue}>
-      <NameValueList
-        nameProps={{ width: ['xxsmall', 'xsmall'] }}
-        valueProps={{ width: 'medium' }}
-      >
-        {Object.entries(user).map(([key, value]) => {
-          const Input = INPUT_MAP.get(key);
+    <Form
+      value={formValue}
+      onChange={(nextValue) => setFormValue(nextValue)}
+      onSubmit={() => onSave(formValue)}
+    >
+      <Box gap="medium">
+        <NameValueList
+          nameProps={{ width: ['xxsmall', 'xsmall'] }}
+          valueProps={{ width: 'medium' }}
+        >
+          {Object.entries(user).map(([key, value]) => {
+            const Input = INPUT_MAP.get(key);
 
-          return (
-            <NameValuePair
-              key={key}
-              name={
-                <NameValueListFormLabel
-                  data={{ displayName: key }}
-                  name={key}
-                />
-              }
-            >
-              <NameValueListFormField name={key}>
-                <Input
-                  id={key}
-                  name={key}
-                  value={formValue[key as keyof UserType]}
-                  onChange={(event: React.SyntheticEvent) =>
-                    onChange(event, key)
-                  }
-                />
-              </NameValueListFormField>
-            </NameValuePair>
-          );
-        })}
-      </NameValueList>
+            return (
+              <NameValuePair
+                key={key}
+                name={
+                  <NameValueListFormLabel
+                    data={{ displayName: key }}
+                    name={key}
+                  />
+                }
+              >
+                <NameValueListFormField name={key}>
+                  <Input
+                    id={key}
+                    name={key}
+                    value={formValue[key as keyof UserType]}
+                  />
+                </NameValueListFormField>
+              </NameValuePair>
+            );
+          })}
+        </NameValueList>
+        <Button label="Update" secondary type="submit" alignSelf="start" />
+      </Box>
     </Form>
   );
 };

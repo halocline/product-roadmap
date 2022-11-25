@@ -17,12 +17,13 @@ router.get('/', function (req, res, next) {
 
 router.get('/:id', function (req, res, next) {
   const user = users.find((u) => JSON.stringify(u.id) === req.params.id);
-  console.log(user);
   res.send(user);
 });
 
-router.put('/', function (req, res, next) {
-  console.log(req);
+router.put('/:id', function (req, res, next) {
+  const index = users.findIndex((u) => JSON.stringify(u.id) === req.params.id);
+  users[index] = req.body;
+  res.status(200).send({ value: users[index] });
 });
 
 module.exports = router;
