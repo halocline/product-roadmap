@@ -7,10 +7,12 @@ import {
   CardBody,
   CardHeader,
   Grid,
+  Header,
   Heading,
+  Layer,
   Text,
 } from './Grommet';
-import { Add } from './grommet-icons';
+import { Add, FormClose } from './grommet-icons';
 import { NavCard } from './NavCard';
 import { UserType } from '../utilities/types';
 
@@ -18,6 +20,7 @@ export const UsersGrid = ({ users: usersProp }: { users: [UserType] }) => {
   const [users, setUsers] = useState<UserType[]>(usersProp);
   const [active, setActive] = useState<number | null>(null);
   const [target, setTarget] = useState<number | null>(null);
+  const [addUserLayer, setAddUserLayer] = useState<boolean>(false);
 
   const onDragStart = (e: React.SyntheticEvent, i: number) => {
     // e.preventDefault();
@@ -66,9 +69,45 @@ export const UsersGrid = ({ users: usersProp }: { users: [UserType] }) => {
           </NavCard>
         ))}
         <Box fill align="start" justify="end">
-          <Button kind="round" a11yTitle="Add user" icon={<Add />} />
+          <Button
+            kind="round"
+            a11yTitle="Add user"
+            icon={<Add />}
+            onClick={() => setAddUserLayer(true)}
+          />
         </Box>
       </Grid>
+      {addUserLayer && <CreateUser onClose={() => setAddUserLayer(false)} />}
     </>
+  );
+};
+
+const CreateUser = ({ onClose }: { onClose: () => void }) => {
+  return (
+    <Layer full>
+      <Header>
+        <></>
+        <Button
+          a11yTitle="Close add user layer"
+          icon={<FormClose />}
+          onClick={() => onClose()}
+        />
+      </Header>
+      <Box direction="row" gap="small">
+        <Button
+          label="Create user"
+          primary
+          onClick={() => {
+            onClose();
+          }}
+        />
+        <Button
+          label="Cancel"
+          onClick={() => {
+            onClose();
+          }}
+        />
+      </Box>
+    </Layer>
   );
 };
