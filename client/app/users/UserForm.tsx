@@ -7,10 +7,10 @@ import {
   NameValueList,
   NameValuePair,
   TextInput,
-} from '../../../components/Grommet';
-import { NameValueListFormField } from '../../../components/NameValueListFormField';
-import { NameValueListFormLabel } from '../../../components/NameValueListFormLabel';
-import { UserType } from '../../../utilities/types';
+} from '../../components/Grommet';
+import { NameValueListFormField } from '../../components/NameValueListFormField';
+import { NameValueListFormLabel } from '../../components/NameValueListFormLabel';
+import { UserType } from '../../utilities/types';
 
 async function updateUser(user: UserType) {
   const res = await fetch(`http://localhost:8080/users/${user.id}`, {

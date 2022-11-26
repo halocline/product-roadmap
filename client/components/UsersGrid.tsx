@@ -1,7 +1,16 @@
 'use client';
 
 import { useState } from 'react';
-import { CardBody, CardHeader, Grid, Heading, Text } from './Grommet';
+import {
+  Box,
+  Button,
+  CardBody,
+  CardHeader,
+  Grid,
+  Heading,
+  Text,
+} from './Grommet';
+import { Add } from './grommet-icons';
 import { NavCard } from './NavCard';
 import { UserType } from '../utilities/types';
 
@@ -56,6 +65,9 @@ export const UsersGrid = ({ users: usersProp }: { users: [UserType] }) => {
             </CardBody>
           </NavCard>
         ))}
+        <Box fill align="start" justify="end">
+          <Button kind="round" a11yTitle="Add user" icon={<Add />} />
+        </Box>
       </Grid>
     </>
   );

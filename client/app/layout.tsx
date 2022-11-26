@@ -1,6 +1,6 @@
 import './globals.css';
 import { Footer, Grommet, Header, Main } from '../components/Grommet';
-import { hpe } from '../themes/hpe';
+import { hpeExtend } from '../themes/hpeExtend';
 
 export default function RootLayout({
   children,
@@ -15,7 +15,7 @@ export default function RootLayout({
       */}
       <head />
       <body>
-        <Grommet theme={hpe} themeMode="dark" full>
+        <Grommet theme={hpeExtend} themeMode="dark" full>
           <Header background="background-contrast">My header</Header>
           <Main>{children}</Main>
           <Footer background="background-contrast">My footer</Footer>
