@@ -1,11 +1,4 @@
-import Link from 'next/link';
-import {
-  Anchor,
-  Page,
-  PageContent,
-  PageHeader,
-  Text,
-} from '../../components/Grommet';
+import { Page, PageContent } from '../../components/Grommet';
 
 const UsersLayout = ({ children }: { children: React.ReactNode }) => (
   <Page>

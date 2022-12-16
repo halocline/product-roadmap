@@ -1,7 +1,6 @@
-import { Button, PageHeader } from '../../components/Grommet';
-import { Add } from '../../components/grommet-icons';
+import { PageHeader } from '../../components/Grommet';
 import { ReverseAnchor } from '../../components/ReverseAnchor';
-import { UsersGrid } from '../../components/UsersGrid';
+import { UsersGrid } from './UsersGrid';
 import { UserType } from '../../utilities/types';
 
 async function getUsers() {

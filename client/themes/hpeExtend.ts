@@ -1,6 +1,6 @@
-'use client'
+'use client';
 
-import { deepMerge } from 'grommet/utils'
+import { deepMerge } from 'grommet/utils';
 
 import { hpe } from './hpe';
 
@@ -13,16 +13,16 @@ export const hpeExtend = deepMerge(hpe, {
         width: '2px',
       },
       padding: {
-        vertical: "10px",
-        horizontal: "10px"
-      }
+        vertical: '10px',
+        horizontal: '10px',
+      },
     },
     hover: {
       round: {
         background: {
-        color: 'background-contrast',
-        }
+          color: 'background-contrast',
+        },
       },
-    }
+    },
   },
 });
