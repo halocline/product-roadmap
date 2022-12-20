@@ -7,10 +7,26 @@ import { Grid } from '../../components/Grid';
 import { CreateUser } from './CreateUser';
 import { UserCard } from './UserCard';
 import { UserType } from '../../utilities/types';
+import { API_URL } from '../../utilities/client-side-config';
+
+async function getUsers() {
+  const res = await fetch(`${API_URL}/users`);
+  return res.json();
+}
 
 export const UsersGrid = ({ users: usersProp }: { users: [UserType] }) => {
   const [users, setUsers] = useState<UserType[]>(usersProp);
   const [addUserLayer, setAddUserLayer] = useState<boolean>(false);
+
+  const handleClose = () => {
+    setAddUserLayer(false);
+  };
+
+  const onCreate = async () => {
+    setAddUserLayer(false);
+    const nextUsers = await getUsers();
+    setUsers(nextUsers);
+  };
 
   return (
     <>
@@ -38,7 +54,7 @@ export const UsersGrid = ({ users: usersProp }: { users: [UserType] }) => {
       {addUserLayer && (
         <Layer full>
           <section>
-            <CreateUser onClose={() => setAddUserLayer(false)} />
+            <CreateUser onCancel={handleClose} onCreate={onCreate} />
           </section>
         </Layer>
       )}

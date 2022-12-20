@@ -11,28 +11,31 @@ import {
 import { NameValueListFormField } from '../../components/NameValueListFormField';
 import { NameValueListFormLabel } from '../../components/NameValueListFormLabel';
 import { UserType } from '../../utilities/types';
+import { API_URL } from '../../utilities/client-side-config';
 
-async function createUser(user: UserType) {
-  const res = await fetch(`http://localhost:8080/users/`, {
+async function createUser(user: UserType, callback: () => void) {
+  const res = await fetch(`${API_URL}/users/`, {
     method: 'POST',
     headers: {
       'Content-Type': 'application/json',
     },
     body: JSON.stringify(user),
   });
-  console.log('RESPONSE', res);
+
+  if (res.ok) {
+    callback();
+  }
   return res.json();
 }
 
 async function updateUser(user: UserType) {
-  const res = await fetch(`http://localhost:8080/users/${user.id}`, {
+  const res = await fetch(`${API_URL}/users/${user.id}`, {
     method: 'PUT',
     headers: {
       'Content-Type': 'application/json',
     },
     body: JSON.stringify(user),
   });
-  console.log('RESPONSE', res);
   return res.json();
 }
 
@@ -56,10 +59,12 @@ export const UserForm = ({
   children,
   user,
   method = 'update',
+  onCreate,
 }: {
   children: React.ReactNode;
   user: UserType;
   method: 'create' | 'update';
+  onCreate: () => void;
 }) => {
   const [formValue, setFormValue] = useState<UserType>(user);
 
@@ -71,7 +76,7 @@ export const UserForm = ({
 
   const onSave = (nextUser: UserType) => {
     if (method === 'create') {
-      createUser(nextUser).then((res) => console.log(res.value));
+      createUser(nextUser, onCreate).then((res) => console.log(res.value));
     } else {
       updateUser(nextUser).then((res) => console.log(res.value));
     }

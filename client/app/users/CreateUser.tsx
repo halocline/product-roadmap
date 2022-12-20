@@ -15,7 +15,13 @@ const newUser: UserType = {
   birthdate: '',
 };
 
-export const CreateUser = ({ onClose }: { onClose: () => void }) => {
+export const CreateUser = ({
+  onCancel,
+  onCreate,
+}: {
+  onCancel: () => void;
+  onCreate: () => void;
+}) => {
   return (
     <Page kind="narrow">
       <Header>
@@ -23,21 +29,16 @@ export const CreateUser = ({ onClose }: { onClose: () => void }) => {
         <Button
           a11yTitle="Close add user layer"
           icon={<FormClose />}
-          onClick={() => onClose()}
+          onClick={() => onCancel()}
         />
       </Header>
       <PageContent>
         <Box gap="medium">
           <PageHeader title="Create user" />
-          <UserForm user={newUser} method="create">
+          <UserForm user={newUser} method="create" onCreate={onCreate}>
             <Box direction="row" gap="small" pad={{ vertical: 'medium' }}>
               <Button label="Create user" type="submit" primary />
-              <Button
-                label="Cancel"
-                onClick={() => {
-                  onClose();
-                }}
-              />
+              <Button label="Cancel" onClick={onCancel} />
             </Box>
           </UserForm>
         </Box>
