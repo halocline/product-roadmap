@@ -37,7 +37,9 @@ export const UsersGrid = ({ users: usersProp }: { users: [UserType] }) => {
       </Grid>
       {addUserLayer && (
         <Layer full>
-          <CreateUser onClose={() => setAddUserLayer(false)} />
+          <section>
+            <CreateUser onClose={() => setAddUserLayer(false)} />
+          </section>
         </Layer>
       )}
     </>

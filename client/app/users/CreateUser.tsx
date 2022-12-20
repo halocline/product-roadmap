@@ -1,9 +1,23 @@
-import { Box, Button, Header } from '../../components/Grommet';
+import {
+  Box,
+  Button,
+  Header,
+  Page,
+  PageContent,
+  PageHeader,
+} from '../../components/Grommet';
 import { FormClose } from '../../components/grommet-icons';
+import { UserForm } from './UserForm';
+import { UserType } from '../../utilities/types';
+
+const newUser: UserType = {
+  name: '',
+  birthdate: '',
+};
 
 export const CreateUser = ({ onClose }: { onClose: () => void }) => {
   return (
-    <>
+    <Page kind="narrow">
       <Header>
         <></>
         <Button
@@ -12,21 +26,22 @@ export const CreateUser = ({ onClose }: { onClose: () => void }) => {
           onClick={() => onClose()}
         />
       </Header>
-      <Box direction="row" gap="small">
-        <Button
-          label="Create user"
-          primary
-          onClick={() => {
-            onClose();
-          }}
-        />
-        <Button
-          label="Cancel"
-          onClick={() => {
-            onClose();
-          }}
-        />
-      </Box>
-    </>
+      <PageContent>
+        <Box gap="medium">
+          <PageHeader title="Create user" />
+          <UserForm user={newUser} method="create">
+            <Box direction="row" gap="small" pad={{ vertical: 'medium' }}>
+              <Button label="Create user" type="submit" primary />
+              <Button
+                label="Cancel"
+                onClick={() => {
+                  onClose();
+                }}
+              />
+            </Box>
+          </UserForm>
+        </Box>
+      </PageContent>
+    </Page>
   );
 };
