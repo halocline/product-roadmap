@@ -1,6 +1,6 @@
 'use client';
 
-import { useState } from 'react';
+import { forwardRef, useEffect, useRef, useState } from 'react';
 import {
   DateInput,
   Form,
@@ -47,13 +47,24 @@ interface InputType {
 }
 
 const INPUT_MAP = new Map();
-INPUT_MAP.set('id', (props: InputType) => (
-  <TextInput type="number" {...props} />
-));
-INPUT_MAP.set('name', (props: InputType) => <TextInput {...props} />);
-INPUT_MAP.set('birthdate', (props: InputType) => (
-  <DateInput format="mm/dd/yyyy" {...props} />
-));
+INPUT_MAP.set(
+  'id',
+  forwardRef<HTMLInputElement, InputType>((props, ref) => (
+    <TextInput ref={ref} type="number" {...props} />
+  ))
+);
+INPUT_MAP.set(
+  'name',
+  forwardRef<HTMLInputElement, InputType>((props, ref) => (
+    <TextInput ref={ref} {...props} />
+  ))
+);
+INPUT_MAP.set(
+  'birthdate',
+  forwardRef<HTMLInputElement, InputType>((props, ref) => (
+    <DateInput ref={ref} format="mm/dd/yyyy" {...props} />
+  ))
+);
 
 export const UserForm = ({
   children,
@@ -67,6 +78,11 @@ export const UserForm = ({
   onCreate: () => void;
 }) => {
   const [formValue, setFormValue] = useState<UserType>(user);
+  const inputRef = useRef<HTMLElement>();
+
+  useEffect(() => {
+    inputRef.current?.focus();
+  }, []);
 
   const onBlur = (nextUser: UserType) => {
     if (method === 'update') {
@@ -92,7 +108,7 @@ export const UserForm = ({
         nameProps={{ width: ['xxsmall', 'xsmall'] }}
         valueProps={{ width: 'medium' }}
       >
-        {Object.entries(user).map(([key, value]) => {
+        {Object.entries(user).map(([key, value], index) => {
           const Input = INPUT_MAP.get(key);
           return (
             <NameValuePair
@@ -106,6 +122,7 @@ export const UserForm = ({
             >
               <NameValueListFormField name={key}>
                 <Input
+                  ref={index === 0 ? inputRef : undefined}
                   id={key}
                   name={key}
                   value={formValue[key as keyof UserType]}
