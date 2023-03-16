@@ -1,4 +1,4 @@
-import { FormField } from './Grommet';
+import { FormField, ThemeContext } from './Grommet';
 
 export const NameValueListFormField = ({
   children,
@@ -9,8 +9,12 @@ export const NameValueListFormField = ({
   children: React.ReactNode;
   data?: { required?: boolean };
   name: string;
-}) => (
-  <FormField id={name} name={name} required={data?.required} {...rest}>
-    {children}
-  </FormField>
-);
+}) => {
+  return (
+    <ThemeContext.Extend value={{ formField: { border: 'none' } }}>
+      <FormField name={name} required={data?.required} {...rest}>
+        {children}
+      </FormField>
+    </ThemeContext.Extend>
+  );
+};
