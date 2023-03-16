@@ -4,12 +4,12 @@ import React, { useState } from 'react';
 import { Grid as GrommetGrid } from './Grommet';
 
 type Props = {
-  children: React.ReactNode;
+  children: React.ReactElement[];
   data: any[];
   setData(arg0: any[]): void;
 };
 
-export const Grid = ({ children, data, setData }: Props) => {
+export const Grid: Function = ({ children, data, setData }: Props) => {
   // const [data, setData] = useState<any[]>(dataProp);
   const [active, setActive] = useState<number | null>(null);
   const [target, setTarget] = useState<number | null>(null);
